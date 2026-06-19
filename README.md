@@ -135,6 +135,10 @@ Los datos proceden de la **Plataforma de Contratación del Sector Público** ([c
 
 ---
 
+## 👤 Autor
+
+Desarrollado por [**iacutetres**](https://github.com/iacutetres).
+
 ## 📝 Licencia
 
 Uso libre. Si lo adaptas a tu municipio, ¡comparte mejoras!

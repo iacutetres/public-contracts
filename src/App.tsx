@@ -234,6 +234,7 @@ export default function App() {
 
         <footer className="footer">
           <p>Datos procedentes de PLACSP · <a href="https://contrataciondelestado.es" target="_blank" rel="noreferrer">contrataciondelestado.es</a></p>
+          <p>Desarrollado por <a href="https://github.com/iacutetres" target="_blank" rel="noreferrer">iacutetres</a></p>
         </footer>
       </main>
 
