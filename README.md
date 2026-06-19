@@ -2,7 +2,7 @@
 
 Panel web para **monitorizar la contratación pública** de un ayuntamiento español a partir de los datos de la **PLACSP** (Plataforma de Contratación del Sector Público).
 
-Hecho con **React + TypeScript + Vite**. Funciona **100 % en el navegador**, sin backend: descarga los contratos, calcula indicadores (KPIs), muestra gráficos y un listado filtrable, y avisa de nuevos contratos.
+Hecho con **React + TypeScript + Vite**. Funciona **100 % en el navegador**, sin backend: descarga los contratos, calcula indicadores (KPIs), y muestra gráficos y un listado filtrable.
 
 > Viene configurado para el **Ayuntamiento de Cullera**, pero puedes adaptarlo a **tu localidad en un minuto** — solo hay que cambiar un código. Ver [Adaptar a tu municipio](#-adaptar-a-tu-municipio).
 
@@ -15,8 +15,7 @@ Hecho con **React + TypeScript + Vite**. Funciona **100 % en el navegador**, sin
 - **Tabla** de contratos ordenada por fecha, con búsqueda, filtros (tipo y estado) y paginación.
 - **Detalle** de cada contrato: importe de licitación y de adjudicación, fin de plazo, fecha de adjudicación, duración, CPV y enlace directo a la ficha en PLACSP.
 - **Tema claro / oscuro** con botón en la cabecera (recuerda tu elección).
-- **Detección de contratos nuevos** y **alertas por email** opcionales (vía EmailJS, sin servidor).
-- Todo el estado se guarda en `localStorage` (no se pierde al recargar).
+- Marca de **última actualización** y estado guardado en `localStorage` (no se pierde al recargar).
 
 ---
 
@@ -77,20 +76,6 @@ Cambia los valores, guarda, y el panel mostrará los contratos de tu localidad c
 
 ---
 
-## 📧 Alertas por email (opcional)
-
-Las alertas usan [EmailJS](https://www.emailjs.com/) (desde el navegador, sin servidor; plan gratuito hasta 200 emails/mes).
-
-1. Crea una cuenta en [emailjs.com](https://www.emailjs.com/).
-2. **Email Services → Add New Service**: conecta tu Gmail/Outlook/SMTP y copia el **Service ID**.
-3. **Email Templates → Create New Template**: usa variables como `{{subject}}`, `{{message}}`, `{{count}}`; en *To Email* pon `{{to_email}}`. Copia el **Template ID**.
-4. **Account → General**: copia tu **Public Key**.
-5. En la app, abre el panel de **alertas**, rellena email + las 3 claves y activa el interruptor.
-
-> Las credenciales de EmailJS se guardan **solo en tu navegador** (`localStorage`); no se publican en el repositorio.
-
----
-
 ## 🌐 Despliegue en producción
 
 En desarrollo, las peticiones a la API pasan por el **proxy de Vite** (configurado en `vite.config.ts`) para evitar problemas de **CORS**.
@@ -105,9 +90,9 @@ En producción **necesitarás un proxy propio** (Cloudflare Worker, Netlify/Verc
 public-contracts/
 ├── src/
 │   ├── config.ts        # ⚙️ configuración del municipio (edita aquí)
-│   ├── components/      # KpiCard, Charts, ContractsTable, AlertPanel
+│   ├── components/      # KpiCard, Charts, ContractsTable
 │   ├── hooks/           # useContracts (lógica), useLocalStorage
-│   ├── services/        # placsp (datos), alerts (EmailJS)
+│   ├── services/        # placsp (datos de PLACSP)
 │   ├── types/           # interfaces TypeScript
 │   ├── App.tsx          # composición de la UI
 │   ├── main.tsx         # punto de entrada
@@ -124,7 +109,6 @@ public-contracts/
 - **React 18** + **TypeScript**
 - **Vite** (servidor de desarrollo y build)
 - **Recharts** (gráficos)
-- **EmailJS** (alertas opcionales)
 - Datos: **PLACSP** (Plataforma de Contratación del Sector Público)
 
 ---

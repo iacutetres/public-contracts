@@ -1,0 +1,5 @@
+# Proxy a la API de datos (evita CORS en producción)
+/digitalvalue-api/*  https://public.digitalvalue.es/:splat  200
+
+# Fallback SPA (React Router / rutas del cliente)
+/*  /index.html  200
