@@ -53,39 +53,27 @@ Abre **http://localhost:5173** y pulsa **Actualizar** para cargar los contratos.
 
 ## 🏙️ Adaptar a tu municipio
 
-Solo necesitas cambiar el **código DIR3** de tu ayuntamiento (y, si quieres, los textos visibles).
+Toda la configuración del municipio está en **un único archivo: `src/config.ts`**. Edítalo y se actualizan automáticamente la cabecera, el título de la pestaña y el favicon.
 
-### 1. Encuentra el código DIR3 de tu ayuntamiento
+```ts
+export const config = {
+  dir3: 'L01461056',                  // ← código DIR3 de tu ayuntamiento
+  entidad: 'Ajuntament de Cullera',   // ← nombre que sale en la cabecera
+  titulo: 'Contratació Pública',      // ← título principal
+  iniciales: 'CP',                    // ← iniciales del logo y el favicon
+}
+```
+
+### ¿Cómo encuentro el código DIR3 de mi ayuntamiento?
 
 El **DIR3** es el identificador oficial de la unidad orgánica en el sector público. Los ayuntamientos tienen el formato `L01` + código (por ejemplo, Cullera es `L01461056`).
 
-Cómo obtenerlo:
 - En el **Directorio Común (DIR3)**: <https://datos.gob.es/es/catalogo/e05024601-directorio-comun-de-unidades-organicas-y-oficinas-dir3>
 - O desde el perfil de tu ayuntamiento en la [PLACSP](https://contrataciondelestado.es).
 
-### 2. Cambia el código en el código fuente
+Cambia los valores, guarda, y el panel mostrará los contratos de tu localidad con su nombre y marca. **No hay que tocar nada más.**
 
-Edita **`src/services/placsp.ts`** (línea 3):
-
-```ts
-// Antes (Cullera)
-const CULLERA_DIR3 = 'L01461056'
-
-// Después (tu municipio — ejemplo)
-const CULLERA_DIR3 = 'L01XXXXXX'
-```
-
-Guarda y el panel cargará los contratos de tu localidad. **Eso es todo lo imprescindible.**
-
-### 3. (Opcional) Personaliza textos y marca
-
-| Qué cambiar | Dónde |
-|---|---|
-| Título de la pestaña del navegador | `index.html` → `<title>` |
-| Nombre y subtítulo de la cabecera | `src/App.tsx` → `<h1>` y `<p>` |
-| Iniciales del logo (arriba a la izquierda) | `src/App.tsx` → `<div className="logo-mark">CP</div>` |
-| Iniciales del favicon | `public/favicon.svg` (texto `CP`) |
-| Color de acento | `src/styles.css` → variable `--accent` |
+> ¿Quieres otro color de acento? Cambia la variable `--accent` en `src/styles.css`.
 
 ---
 
@@ -116,6 +104,7 @@ En producción **necesitarás un proxy propio** (Cloudflare Worker, Netlify/Verc
 ```
 public-contracts/
 ├── src/
+│   ├── config.ts        # ⚙️ configuración del municipio (edita aquí)
 │   ├── components/      # KpiCard, Charts, ContractsTable, AlertPanel
 │   ├── hooks/           # useContracts (lógica), useLocalStorage
 │   ├── services/        # placsp (datos), alerts (EmailJS)

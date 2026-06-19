@@ -1,4 +1,5 @@
 import React, { useState, useMemo, useEffect } from 'react'
+import { config } from './config'
 import { useLocalStorage } from './hooks/useLocalStorage'
 import { KpiCard } from './components/KpiCard'
 import { Charts } from './components/Charts'
@@ -22,6 +23,20 @@ export default function App() {
   useEffect(() => {
     document.documentElement.setAttribute('data-theme', theme)
   }, [theme])
+
+  // Sincroniza título de pestaña y favicon con la configuración del municipio
+  useEffect(() => {
+    document.title = `${config.entidad} · ${config.titulo}`
+    const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 64 64"><rect width="64" height="64" rx="16" fill="#f5a524"/><text x="50%" y="50%" text-anchor="middle" dominant-baseline="central" font-family="'Syne','Trebuchet MS',Verdana,sans-serif" font-weight="800" font-size="30" letter-spacing="-1" fill="#ffffff">${config.iniciales}</text></svg>`
+    let link = document.querySelector<HTMLLinkElement>("link[rel='icon']")
+    if (!link) {
+      link = document.createElement('link')
+      link.rel = 'icon'
+      document.head.appendChild(link)
+    }
+    link.type = 'image/svg+xml'
+    link.href = 'data:image/svg+xml,' + encodeURIComponent(svg)
+  }, [])
 
   const [filterYear, setFilterYear] = useState<number | null>(null)
   const [filterProvider, setFilterProvider] = useState<string | null>(null)
@@ -83,10 +98,10 @@ export default function App() {
       {/* Header */}
       <header className="header">
         <div className="header-left">
-          <div className="logo-mark">CP</div>
+          <div className="logo-mark">{config.iniciales}</div>
           <div>
-            <h1>Contratació Pública</h1>
-            <p>Ajuntament de Cullera · PLACSP</p>
+            <h1>{config.titulo}</h1>
+            <p>{config.entidad} · PLACSP</p>
           </div>
         </div>
         <div className="header-right">

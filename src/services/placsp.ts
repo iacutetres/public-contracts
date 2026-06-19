@@ -1,6 +1,6 @@
 import type { Contract } from '../types'
+import { config } from '../config'
 
-const CULLERA_DIR3 = 'L01461056'
 const API_BASE = '/digitalvalue-api/contratacionestado/api.php'
 
 interface ApiContract {
@@ -28,7 +28,7 @@ interface ApiContract {
 }
 
 export async function fetchCulleraContracts(): Promise<Contract[]> {
-  const response = await fetch(`${API_BASE}/contratacion/${CULLERA_DIR3}`, {
+  const response = await fetch(`${API_BASE}/contratacion/${config.dir3}`, {
     signal: AbortSignal.timeout(20000),
     headers: { Accept: 'application/json' },
   })
